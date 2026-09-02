@@ -59,51 +59,33 @@
       line-height: 1;
     }
 
-    .menu-button {
-      width: 40px;
-      height: 40px;
-      border: 0;
-      background: transparent;
-      color: white;
-      font-size: 30px;
-      line-height: 1;
-      cursor: pointer;
-      padding: 0;
+    .topnav {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 18px;
+      margin-left: auto;
     }
 
-    .menu-button:hover { opacity: 0.9; }
-
-    .drawer {
-      position: fixed;
-      top: 62px;
-      right: 18px;
-      width: 180px;
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-      display: none;
-      overflow: hidden;
-      z-index: 120;
-    }
-
-    .drawer.open { display: block; }
-
-    .drawer a {
-      display: block;
+    .topnav a {
+      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
-      color: var(--text);
-      padding: 14px 16px;
-      border-bottom: 1px solid #edf0f3;
       font-size: 15px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
     }
 
-    .drawer a:last-child { border-bottom: 0; }
+    .topnav a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
 
-    .drawer a:hover { background: #f6f8fb; }
+    .topnav a.active {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
 
     main {
       max-width: 1040px;
@@ -128,7 +110,8 @@
     @media (max-width: 768px) {
       .app-title { font-size: 22px; }
       .topbar { height: 56px; }
-      .drawer { right: 10px; }
+      .topnav { gap: 8px; }
+      .topnav a { font-size: 13px; padding: 7px 8px; }
       main { margin-top: 18px; }
     }
   </style>
@@ -137,21 +120,13 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="app-title">防災アプリ</div>
-      <button type="button" class="menu-button" aria-label="メニューを開く" onclick="toggleMenu()">☰</button>
+      <nav class="topnav" aria-label="メインナビゲーション">
+        <a href="/" {% if request.path == '/' %}class="active"{% endif %}>ホーム</a>
+        <a href="/shelter_search" {% if request.path == '/shelter_search' %}class="active"{% endif %}>避難所検索</a>
+        <a href="/shelter_register" {% if request.path == '/shelter_register' %}class="active"{% endif %}>避難所登録</a>
+      </nav>
     </div>
   </header>
-
-  <nav id="menuDrawer" class="drawer" aria-label="メニュー">
-    <a href="/">ホーム</a>
-    <a href="/shelter_search">避難所検索</a>
-    <a href="/shelter_register">避難所登録</a>
-    <a href="/board">指示・発信ボード</a>
-    {% if session.logged_in %}
-      <a href="/logout">ログアウト</a>
-    {% else %}
-      <a href="/login">ログイン</a>
-    {% endif %}
-  </nav>
 
   <main>
     <div class="content-wrap">
@@ -159,21 +134,5 @@
     </div>
   </main>
 
-  <script>
-    function toggleMenu() {
-      const drawer = document.getElementById('menuDrawer');
-      if (!drawer) return;
-      drawer.classList.toggle('open');
-    }
-
-    document.addEventListener('click', function (event) {
-      const drawer = document.getElementById('menuDrawer');
-      const button = document.querySelector('.menu-button');
-      if (!drawer || !button) return;
-      if (!drawer.contains(event.target) && !button.contains(event.target)) {
-        drawer.classList.remove('open');
-      }
-    });
-  </script>
 </body>
 </html>
