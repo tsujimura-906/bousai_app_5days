@@ -230,6 +230,16 @@
 <div class="search-result-page">
   <h2 class="search-page-title">避難所検索</h2>
 
+  <div class="map-card card">
+    <div class="map-header">
+      <span class="pin" aria-hidden="true"></span>
+      <span>避難所マップ</span>
+    </div>
+    <div class="map-wrap">
+      <div id="shelterMap" aria-label="避難所マップ"></div>
+    </div>
+  </div>
+
   <div class="search-controls" aria-label="検索条件の設定">
     <div class="search-controls-row">
       <div class="control-group">
@@ -246,7 +256,7 @@
             <option>受け入れ人数順</option>
           </select>
         </label>
-        <button type="button" class="nav-button">状況一覧へ飛ぶ</button>
+        <button type="button" class="nav-button">検索</button>
       </div>
     </div>
 
@@ -259,16 +269,6 @@
       <label class="filter-item"><input type="checkbox" /> 多目的トイレ</label>
       <label class="filter-item"><input type="checkbox" /> 車椅子対応</label>
       <label class="filter-item"><input type="checkbox" /> 言語対応</label>
-    </div>
-  </div>
-
-  <div class="map-card card">
-    <div class="map-header">
-      <span class="pin" aria-hidden="true"></span>
-      <span>避難所マップ</span>
-    </div>
-    <div class="map-wrap">
-      <div id="shelterMap" aria-label="避難所マップ"></div>
     </div>
   </div>
 
